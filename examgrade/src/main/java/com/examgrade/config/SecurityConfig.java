@@ -11,12 +11,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())   // 🔴 REQUIRED for POST
+            .csrf(csrf -> csrf.disable())   // 🔥 allow POST from Postman
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/register").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin();
+                .anyRequest().permitAll()  // 🔥 keep everything open for now
+            );
 
         return http.build();
     }
