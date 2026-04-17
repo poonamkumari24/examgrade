@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Exam Grade</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    font-family: system-ui, -apple-system, sans-serif;
+    background:#f8f9fb;
+}
+
+/* NAVBAR */
+.navbar{
+    background:white;
+}
+
+/* HERO */
+.hero{
+    background:#eef2f7;
+    padding:90px 0;
+    text-align:center;
+}
+
+.hero-badge{
+    background:#e7f0ff;
+    color:#2f6df6;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:14px;
+    display:inline-block;
+}
+
+.hero h1{
+    font-weight:700;
+}
+
+.hero h1 span{
+    color:#2f6df6;
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:#6c757d;
+}
+
+/* BUTTONS */
+.btn-dark-custom{
+    background:#1f2937;
+    color:white;
+    border-radius:8px;
+    padding:10px 22px;
+}
+
+.btn-blue{
+    background:#2f6df6;
+    color:white;
+    border-radius:8px;
+    padding:10px 22px;
+}
+
+.btn-light-custom{
+    background:#f1f3f5;
+    border-radius:8px;
+    padding:10px 22px;
+}
+
+/* FEATURES */
+.section-title{
+    text-align:center;
+}
+
+.feature-card{
+    border:none;
+    border-radius:12px;
+    padding:25px;
+    background:white;
+    transition:.3s;
+}
+
+.feature-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* STATS */
+.stats{
+    background:#2f6df6;
+    color:white;
+    padding:50px 0;
+}
+
+/* CTA */
+.cta{
+    background:#eef2f7;
+    padding:60px 0;
+    text-align:center;
+}
+
+/* FOOTER */
+footer{
+    background:white;
+    padding:40px 0;
+    font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg py-3 shadow-sm">
+<div class="container">
+
+<a class="navbar-brand fw-bold text-primary">Exam Grade</a>
+
+<div class="ms-auto d-flex align-items-center gap-3">
+<a class="nav-link">Home</a>
+<a class="nav-link">Features</a>
+<a class="nav-link">About</a>
+<a href="login.html" class="nav-link text-primary">Login</a>
+<a href="register.html" class="btn btn-blue">Register</a>
+</div>
+
+</div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+<div class="container">
+
+<div class="hero-badge mb-3">
+🚀 Transforming Education Digitally
+</div>
+
+<h1 class="display-5">
+Online Quiz & Grading <br>
+<span>Management System</span>
+</h1>
+
+<p class="mt-3">
+Streamline your assessment process. Create comprehensive quizzes,
+allow students to attempt tests remotely, and evaluate results instantly
+with detailed analytics.
+</p>
+
+<div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+
+<button class="btn btn-dark-custom">
+🔒 Login as Admin
+</button>
+
+<button class="btn btn-blue">
+👨‍🏫 Login as Teacher
+</button>
+
+<button class="btn btn-light-custom">
+🎓 Login as Student
+</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="py-5">
+<div class="container">
+
+<div class="section-title mb-5">
+<p class="text-primary small fw-bold">FEATURES</p>
+<h3 class="fw-bold">Everything you need for assessments</h3>
+<p class="text-muted">
+A complete suite of tools designed to make the examination lifecycle seamless and efficient.
+</p>
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="feature-card text-center">
+<h5 class="fw-bold">Quiz Creation</h5>
+<p class="text-muted">
+Effortlessly create multiple-choice, short answer, and true/false questions.
+</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="feature-card text-center">
+<h5 class="fw-bold">Automated Grading</h5>
+<p class="text-muted">
+System automatically grades objective questions instantly.
+</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="feature-card text-center">
+<h5 class="fw-bold">Result Analysis</h5>
+<p class="text-muted">
+Visualize student performance with analytics and reports.
+</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="stats text-center">
+<div class="container">
+<div class="row">
+
+<div class="col-md-4">
+<h3 class="fw-bold">1,000+</h3>
+<p>Quizzes Created</p>
+</div>
+
+<div class="col-md-4">
+<h3 class="fw-bold">50,000+</h3>
+<p>Questions Answered</p>
+</div>
+
+<div class="col-md-4">
+<h3 class="fw-bold">99%</h3>
+<p>Time Saved</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta">
+<div class="container">
+
+<h4 class="fw-bold">Ready to modernize your examination process?</h4>
+
+<p class="text-muted">
+Join hundreds of educational institutions and teachers managing their quizzes with Exam Grade.
+</p>
+
+<button class="btn btn-blue mt-3">
+Get Started for Free →
+</button>
+
+</div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+<div class="container">
+
+<div class="row">
+
+<div class="col-md-6">
+<h6 class="fw-bold text-primary">Exam Grade</h6>
+<p class="text-muted">
+Advanced digital platform for managing online assessments,
+grading and performance tracking.
+</p>
+</div>
+
+<div class="col-md-3">
+<h6 class="fw-bold">Product</h6>
+<p class="text-muted mb-1">Features</p>
+<p class="text-muted mb-1">Pricing</p>
+<p class="text-muted mb-1">Demo</p>
+</div>
+
+<div class="col-md-3">
+<h6 class="fw-bold">Support</h6>
+<p class="text-muted mb-1">Documentation</p>
+<p class="text-muted mb-1">Contact</p>
+<p class="text-muted mb-1">FAQ</p>
+</div>
+
+</div>
+
+<hr>
+
+<p class="text-center text-muted small mb-0">
+© 2026 Exam Grade System. All rights reserved.
+</p>
+
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
