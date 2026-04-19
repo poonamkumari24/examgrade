@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Manage Students</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#f3f6fb;
+    font-family:system-ui;
+}
+
+/* Titles */
+
+.page-title{
+    font-size:24px;
+    font-weight:700;
+    color:black;
+}
+
+.page-subtitle{
+    color:#6c757d;
+    margin-top:4px;
+}
+
+/* Card container */
+
+.card-box{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Search */
+
+.search-bar{
+    background:#f3f6fb;
+    border-radius:8px;
+}
+
+/* Status badges */
+
+.status-active{
+    background:#d1fae5;
+    color:#065f46;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+.status-inactive{
+    background:#fee2e2;
+    color:#7f1d1d;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+/* Table header */
+
+.table thead{
+    background:#f1f5f9;
+}
+
+/* Action icons */
+
+.action-btn{
+    border:none;
+    background:none;
+    margin-right:8px;
+}
+
+.edit-btn{
+    color:#2f6df6;
+}
+
+.delete-btn{
+    color:#dc3545;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container py-5">
+
+<!-- Breadcrumb -->
+
+<div class="mb-3 text-muted" style="font-size:14px;">
+<a href="admindashboard.html" style="text-decoration:none;">Home</a> >
+<a href="#" style="text-decoration:none;">Admin</a> >
+Students
+</div>
+
+<!-- Title section -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+<div class="page-title">MANAGE STUDENTS</div>
+
+<div class="page-subtitle">
+View, edit, and manage student enrollment data across all classes.
+</div>
+</div>
+
+<button class="btn btn-primary">
++ Add New Student
+</button>
+
+</div>
+
+<!-- Card -->
+
+<div class="card-box">
+
+<!-- Search + Filters -->
+
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
+<div style="width:320px;">
+
+<div class="input-group search-bar">
+
+<span class="input-group-text border-0" style="background:#f3f6fb;">
+<i class="fa fa-search text-muted"></i>
+</span>
+
+<input type="text"
+class="form-control border-0"
+placeholder="Search students..."
+style="background:#f3f6fb;">
+
+</div>
+
+</div>
+
+<div>
+
+<span class="me-2 text-muted">Filter by :</span>
+
+<button class="btn btn-outline-secondary btn-sm">All Classes</button>
+<button class="btn btn-outline-secondary btn-sm">Grade 10</button>
+<button class="btn btn-outline-secondary btn-sm">Grade 11</button>
+<button class="btn btn-outline-secondary btn-sm">Grade 12</button>
+
+</div>
+
+</div>
+
+<!-- Students Table -->
+
+<div class="table-responsive">
+
+<table class="table align-middle">
+
+<thead>
+
+<tr>
+<th>STUDENT</th>
+<th>STUDENT ID</th>
+<th>EMAIL</th>
+<th>CLASS</th>
+<th>STATUS</th>
+<th class="text-end">ACTIONS</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>Rahul Sharma</td>
+<td>STU001</td>
+<td>rahul@email.com</td>
+<td>Grade 10</td>
+<td><span class="status-active">Active</span></td>
+<td class="text-end">
+<button class="action-btn edit-btn"><i class="fa fa-pen"></i></button>
+<button class="action-btn delete-btn"><i class="fa fa-trash"></i></button>
+</td>
+</tr>
+
+<tr>
+<td>Ananya Singh</td>
+<td>STU002</td>
+<td>ananya@email.com</td>
+<td>Grade 11</td>
+<td><span class="status-active">Active</span></td>
+<td class="text-end">
+<button class="action-btn edit-btn"><i class="fa fa-pen"></i></button>
+<button class="action-btn delete-btn"><i class="fa fa-trash"></i></button>
+</td>
+</tr>
+
+<tr>
+<td>Rohit Kumar</td>
+<td>STU003</td>
+<td>rohit@email.com</td>
+<td>Grade 12</td>
+<td><span class="status-inactive">Inactive</span></td>
+<td class="text-end">
+<button class="action-btn edit-btn"><i class="fa fa-pen"></i></button>
+<button class="action-btn delete-btn"><i class="fa fa-trash"></i></button>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- Pagination -->
+
+<div class="d-flex justify-content-between align-items-center mt-4">
+
+<div class="text-muted">
+Showing 1 to 3 of 48 students
+</div>
+
+<div>
+
+<button class="btn btn-outline-secondary me-2">
+<i class="fa fa-chevron-left"></i>
+</button>
+
+<button class="btn btn-outline-secondary">
+<i class="fa fa-chevron-right"></i>
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
