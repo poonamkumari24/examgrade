@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Admin Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:system-ui,-apple-system,sans-serif;
+    background:#f3f6fb;
+}
+
+/* SIDEBAR */
+.sidebar{
+    height:100vh;
+    background:white;
+    position:fixed;
+    width:240px;
+    padding-top:25px;
+    border-right:1px solid #e5e7eb;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.sidebar-top{
+    padding:0 20px;
+}
+
+.profile{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.profile i{
+    font-size:45px;
+    color:#2f6df6;
+}
+
+.profile h6{
+    margin-top:10px;
+    margin-bottom:0;
+    font-weight:600;
+}
+
+.profile small{
+    color:#6c757d;
+}
+
+.sidebar a{
+    display:block;
+    padding:12px 20px;
+    color:#374151;
+    text-decoration:none;
+    font-size:15px;
+    border-radius:8px;
+    margin-bottom:5px;
+}
+
+.sidebar a:hover,
+.sidebar a.active{
+    background:#2f6df6;
+    color:white;
+}
+
+/* LOGOUT BOTTOM */
+.sidebar-bottom{
+    padding:20px;
+}
+
+.logout-btn{
+    color:#dc3545;
+    text-decoration:none;
+    font-weight:500;
+}
+
+.logout-btn:hover{
+    color:#a71d2a;
+}
+
+/* MAIN */
+.main{
+    margin-left:240px;
+    padding:30px;
+}
+
+/* HEADER TEXT */
+.dashboard-title{
+    font-size:22px;
+    font-weight:700;
+    color:black;
+}
+
+.dashboard-subtitle{
+    color:#6c757d;
+    margin-top:5px;
+    margin-bottom:25px;
+}
+
+/* CARD */
+.dashboard-card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.btn-primary-custom{
+    background:#2f6df6;
+    color:white;
+    border-radius:8px;
+}
+
+.btn-primary-custom:hover{
+    background:#2559cc;
+    color:white;
+}
+
+/* FOOTER */
+.footer{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid #ddd;
+    font-size:14px;
+    color:#6c757d;
+}
+
+.footer a{
+    text-decoration:none;
+    color:#6c757d;
+    margin-right:15px;
+}
+
+.footer a:hover{
+    color:#2f6df6;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<div class="sidebar-top" id="sidebarMenu">
+
+    <div class="profile">
+        <i class="fa-solid fa-user-shield"></i>
+        <h6>Admin Name</h6>
+        <small>Administrator</small>
+    </div>
+
+    <a href="#">Dashboard</a>
+    <a href="adminteachers.html">Manage Teachers</a>
+    <a href="adminstudents.html">Manage Students</a>
+    <a href="adminsubjects.html">Manage Subjects</a>
+    <a href="adminreports.html">View Reports</a>
+
+</div>
+
+<div class="sidebar-bottom">
+    <a href="#" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+    </a>
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <div class="dashboard-title">DASHBOARD OVERVIEW</div>
+        <div class="dashboard-subtitle">
+            Welcome back , Administrator. Here is what is happening today.
+        </div>
+    </div>
+    <button class="btn btn-primary-custom">+ Add New User</button>
+</div>
+
+<!-- STATS -->
+<div class="row g-4 mt-1">
+
+<div class="col-md-3">
+<div class="dashboard-card text-center">
+<h4>120</h4>
+<p class="text-muted mb-0">Teachers</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="dashboard-card text-center">
+<h4>850</h4>
+<p class="text-muted mb-0">Students</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="dashboard-card text-center">
+<h4>35</h4>
+<p class="text-muted mb-0">Subjects</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="dashboard-card text-center">
+<h4>210</h4>
+<p class="text-muted mb-0">Total Quizzes</p>
+</div>
+</div>
+
+</div>
+
+<!-- GRAPH + ACTIVITY -->
+<div class="row g-4 mt-2">
+
+<div class="col-md-8">
+<div class="dashboard-card">
+<h6>Quiz Submissions Overview</h6>
+<canvas id="quizChart" height="120"></canvas>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="dashboard-card">
+<h6>Recent Activity</h6>
+<ul class="list-unstyled mt-3">
+<li>✔ Teacher added a new quiz</li>
+<li>✔ Student completed Math Quiz</li>
+<li>✔ New student registered</li>
+<li>✔ Subject updated</li>
+<li>✔ Report generated</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer text-center">
+    © 2026 Exam Grade System. All Rights Reserved.
+    <div class="mt-2">
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Help Center</a>
+    </div>
+</div>
+
+</div>
+
+<script>
+const ctx = document.getElementById('quizChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+            data: [30, 45, 60, 50, 70, 90],
+            borderColor: '#2f6df6',
+            backgroundColor: 'rgba(47,109,246,0.1)',
+            fill: true,
+            tension: 0.4
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } }
+    }
+});
+</script>
+<script>
+const links = document.querySelectorAll('#sidebarMenu a');
+
+links[0].classList.add('active');
+
+links.forEach(link => {
+    link.addEventListener('click', function() {
+
+        // Remove active from all
+        links.forEach(l => l.classList.remove('active'));
+
+        // Add active to clicked
+        this.classList.add('active');
+
+    });
+});
+</script>
+</body>
+</html>
