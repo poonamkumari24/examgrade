@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Reports</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body style="background:#f6f8fb;">
+
+
+<div class="container mt-4">
+
+
+<!-- Breadcrumb -->
+
+<nav>
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="admindashboard.html" style="text-decoration:none;">Home</a></li>
+<li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Admin</a></li>
+<li class="breadcrumb-item active">Reports</li>
+</ol>
+</nav>
+
+
+<!-- Title -->
+
+<div class="d-flex justify-content-between align-items-center">
+
+<div>
+
+<h3 style="font-weight:bold;color:black;">
+SYSTEM ANALYTICS & REPORTS
+</h3>
+
+<p style="color:gray;">
+Overview of student performance and system usage.
+</p>
+
+</div>
+
+
+<div>
+
+<button class="btn btn-light border me-2">
+<i class="fa fa-calendar"></i> Last 30 Days
+</button>
+
+<button class="btn btn-primary">
+<i class="fa fa-download"></i> Export Data
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- ANALYTICS CARDS -->
+
+<div class="row mt-4">
+
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<i class="fa fa-chart-line fa-lg mb-2"></i>
+
+<h6>Total Attempts</h6>
+
+<h4>1,245</h4>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<i class="fa fa-star fa-lg mb-2"></i>
+
+<h6>Avg. Score</h6>
+
+<h4>78%</h4>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<i class="fa fa-users fa-lg mb-2"></i>
+
+<h6>Active Students</h6>
+
+<h4>320</h4>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<i class="fa fa-clock fa-lg mb-2"></i>
+
+<h6>Pending Reviews</h6>
+
+<h4>18</h4>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- GRAPH + SUBJECT ENGAGEMENT -->
+
+
+<div class="row mt-4">
+
+
+<div class="col-md-8">
+
+<div class="card shadow-sm">
+
+<div class="card-body">
+
+<h6>Performance History</h6>
+
+<canvas id="performanceChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-4">
+
+<div class="card shadow-sm">
+
+<div class="card-body">
+
+<h6>Subject Engagement</h6>
+
+<br>
+
+<label>Mathematics</label>
+
+<div class="progress mb-2">
+
+<div class="progress-bar bg-primary" style="width:80%;">80%</div>
+
+</div>
+
+
+<label>Physics</label>
+
+<div class="progress mb-2">
+
+<div class="progress-bar bg-success" style="width:65%;">65%</div>
+
+</div>
+
+
+<label>Chemistry</label>
+
+<div class="progress mb-2">
+
+<div class="progress-bar bg-warning" style="width:55%;">55%</div>
+
+</div>
+
+
+<label>Biology</label>
+
+<div class="progress mb-2">
+
+<div class="progress-bar bg-danger" style="width:40%;">40%</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- RECENT QUIZ SUBMISSIONS -->
+
+
+<div class="card mt-4 shadow-sm">
+
+<div class="card-body">
+
+
+<div class="d-flex justify-content-between mb-3">
+
+
+<h6>Recent Quiz Submissions</h6>
+
+
+<div class="d-flex">
+
+<input type="text"
+
+class="form-control me-2"
+
+placeholder="Search student..."
+
+style="outline:none;box-shadow:none;width:200px;">
+
+
+<button class="btn btn-light border">
+
+<i class="fa fa-filter"></i>
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<table class="table table-hover">
+
+<thead class="table-light">
+
+<tr>
+
+<th>STUDENT NAME</th>
+<th>QUIZ TITLE</th>
+<th>SUBMITTED ON</th>
+<th>SCORE</th>
+<th>STATUS</th>
+<th>ACTIONS</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="quizTable">
+
+
+<tr>
+
+<td>Poonam Kumari</td>
+<td>Physics Quiz</td>
+<td>12 Mar 2026</td>
+<td>85%</td>
+<td><span class="badge bg-success">Passed</span></td>
+<td><button class="btn btn-sm btn-outline-primary">View</button></td>
+
+</tr>
+
+
+<tr>
+
+<td>Rahul Sharma</td>
+<td>Math Quiz</td>
+<td>10 Mar 2026</td>
+<td>72%</td>
+<td><span class="badge bg-success">Passed</span></td>
+<td><button class="btn btn-sm btn-outline-primary">View</button></td>
+
+</tr>
+
+
+<tr>
+
+<td>Anjali Verma</td>
+<td>Chemistry Quiz</td>
+<td>1 Mar 2026</td>
+<td>48%</td>
+<td><span class="badge bg-danger">Failed</span></td>
+<td><button class="btn btn-sm btn-outline-primary">View</button></td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+
+</div>
+
+</div>
+
+
+
+<!-- Pagination -->
+
+
+<div class="d-flex justify-content-center mt-3">
+
+<button class="btn btn-outline-secondary me-2">
+<i class="fa fa-chevron-left"></i>
+</button>
+
+<button class="btn btn-outline-secondary">
+<i class="fa fa-chevron-right"></i>
+</button>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+const ctx = document.getElementById('performanceChart');
+
+
+new Chart(ctx, {
+
+type: 'line',
+
+data: {
+
+labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+
+datasets: [{
+
+label: 'Average Score',
+
+data: [60,65,70,75,72,78],
+
+borderColor: '#0d6efd',
+
+backgroundColor: 'rgba(13,110,253,0.2)',
+
+fill:true,
+
+tension:0.3
+
+}]
+
+}
+
+});
+
+
+const search = document.querySelector("input");
+
+const rows = document.querySelectorAll("#quizTable tr");
+
+
+search.addEventListener("keyup",function(){
+
+let filter = search.value.toLowerCase();
+
+rows.forEach(row=>{
+
+let text = row.textContent.toLowerCase();
+
+row.style.display = text.includes(filter) ? "" : "none";
+
+});
+
+});
+
+
+</script>
+
+
+</body>
+</html>
