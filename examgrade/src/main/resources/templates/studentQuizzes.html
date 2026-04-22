@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Available Quizzes</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body style="background:#f5f7fb; font-family:Arial, sans-serif;">
+
+<div class="container-fluid p-4">
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+<div>
+    <!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="mb-3">
+ <ol class="breadcrumb" style="background:transparent; padding:0; margin:0; font-size:14px;">
+    
+    <li class="breadcrumb-item">
+      <a href="index.html" style="text-decoration:none;">Home</a>
+    </li>
+    
+    <li class="breadcrumb-item">
+      <a href="studentDashboard.html" style="text-decoration:none;">Student</a>
+    </li>
+    
+    <li class="breadcrumb-item active" aria-current="page">
+      Available Quizzes
+    </li>
+
+  </ol>
+</nav>
+<h2 style="font-weight:700;">Available Quizzes</h2>
+<p style="color:#6c757d;">Browse and start your assigned quizzes</p>
+</div>
+
+<div class="d-flex gap-2">
+
+<input type="text" id="searchInput" class="form-control"
+placeholder="Search quizzes..."
+style="width:250px; border-radius:20px;">
+
+<button class="btn btn-light">
+<i class="fa-solid fa-filter"></i>
+</button>
+
+</div>
+
+</div>
+
+<!-- FILTER BAR -->
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+<select class="form-select" style="width:220px;" id="subjectFilter">
+<option value="all">All Subjects</option>
+<option value="science">Science</option>
+<option value="history">History</option>
+<option value="math">Math</option>
+</select>
+
+<button class="btn btn-outline-primary">
+<i class="fa-solid fa-sliders"></i> Filters
+</button>
+
+</div>
+
+<!-- QUIZ GRID -->
+<div class="row g-4" id="quizContainer">
+
+<!-- CARD 1 -->
+<div class="col-md-6 col-lg-3 quiz-card" data-title="biology" data-subject="science">
+
+<div class="card h-100" style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+
+<img src="https://images.unsplash.com/photo-1581091012184-5c1a5c7c02c3"
+style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
+
+<div class="card-body d-flex flex-column">
+
+<span class="badge bg-primary mb-2">Science</span>
+
+<h5>Biology 101</h5>
+
+<p style="font-size:14px; color:#6c757d;">
+Basics of cells, human body & plant systems.
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-list"></i> 15 Questions
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-clock"></i> 25 Minutes
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-calendar"></i> 6 April 2026
+</p>
+
+<button class="btn btn-primary mt-auto w-100">
+<i class="fa-solid fa-play"></i> Start Exam
+</button>
+
+</div>
+</div>
+</div>
+
+<!-- CARD 2 -->
+<div class="col-md-6 col-lg-3 quiz-card" data-title="history" data-subject="history">
+
+<div class="card h-100" style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"
+style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
+
+<div class="card-body d-flex flex-column">
+
+<span class="badge bg-warning text-dark mb-2">History</span>
+
+<h5>World History</h5>
+
+<p style="font-size:14px; color:#6c757d;">
+Ancient civilizations and global events overview.
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-list"></i> 15 Questions
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-clock"></i> 25 Minutes
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-calendar"></i> 6 April 2026
+</p>
+
+<button class="btn btn-primary mt-auto w-100">
+<i class="fa-solid fa-play"></i> Start Exam
+</button>
+
+</div>
+</div>
+</div>
+
+<!-- CARD 3 -->
+<div class="col-md-6 col-lg-3 quiz-card" data-title="math" data-subject="math">
+
+<div class="card h-100" style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+
+<img src="https://images.unsplash.com/photo-1509228468518-180dd4864904"
+style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
+
+<div class="card-body d-flex flex-column">
+
+<span class="badge bg-success mb-2">Math</span>
+
+<h5>Algebra Test</h5>
+
+<p style="font-size:14px; color:#6c757d;">
+Linear equations, polynomials and basics.
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-list"></i> 25 Questions
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-clock"></i> 40 Minutes
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-calendar"></i> 7 April 2026
+</p>
+
+<button class="btn btn-primary mt-auto w-100">
+<i class="fa-solid fa-play"></i> Start Exam
+</button>
+
+</div>
+</div>
+</div>
+
+<!-- CARD 4 -->
+<div class="col-md-6 col-lg-3 quiz-card" data-title="physics" data-subject="science">
+
+<div class="card h-100" style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+
+<img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb"
+style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
+
+<div class="card-body d-flex flex-column">
+
+<span class="badge bg-primary mb-2">Science</span>
+
+<h5>Physics Basics</h5>
+
+<p style="font-size:14px; color:#6c757d;">
+Motion, force, and energy fundamentals.
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-list"></i> 18 Questions
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-clock"></i> 35 Minutes
+</p>
+
+<p style="font-size:13px; color:#6c757d;">
+<i class="fa-solid fa-calendar"></i> 8 April 2026
+</p>
+
+<button class="btn btn-primary mt-auto w-100">
+<i class="fa-solid fa-play"></i> Start Exam
+</button>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- PAGINATION -->
+<div class="d-flex justify-content-between align-items-center mt-4">
+
+<p style="color:#6c757d;">Showing 1–6 of 24 quizzes</p>
+
+<div>
+<button class="btn btn-outline-secondary btn-sm me-2">Previous</button>
+<button class="btn btn-primary btn-sm">Next</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+
+const searchInput = document.getElementById("searchInput");
+const subjectFilter = document.getElementById("subjectFilter");
+const cards = document.querySelectorAll(".quiz-card");
+
+function filterQuizzes() {
+
+let search = searchInput.value.toLowerCase();
+let subject = subjectFilter.value;
+
+cards.forEach(card => {
+
+let title = card.dataset.title;
+let cardSubject = card.dataset.subject;
+
+let matchSearch = title.includes(search);
+let matchSubject = subject === "all" || subject === cardSubject;
+
+if(matchSearch && matchSubject){
+card.style.display = "block";
+}else{
+card.style.display = "none";
+}
+
+});
+
+}
+
+searchInput.addEventListener("input", filterQuizzes);
+subjectFilter.addEventListener("change", filterQuizzes);
+
+</script>
+
+</body>
+</html>
