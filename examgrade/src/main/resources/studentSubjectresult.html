@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Result</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body style="background:#f4f6f9; font-family:Arial, sans-serif;">
+
+<div class="container py-4">
+
+    <!-- Breadcrumb + Title -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="mb-3">
+ <ol class="breadcrumb" style="background:transparent; padding:0; margin:0; font-size:14px;">
+    
+    <li class="breadcrumb-item">
+      <a href="studentDashboard.html" style="text-decoration:none;">Student</a>
+    </li>
+    
+    <li class="breadcrumb-item">
+      <a href="#" style="text-decoration:none;">My Results</a>
+    </li>
+    
+    <li class="breadcrumb-item active" aria-current="page">
+        Physics 101 
+    </li>
+
+  </ol>
+</nav>
+
+        <div class="d-flex align-items-center gap-2">
+            <h5 class="fw-bold mb-0">Quiz Result</h5>
+            <button class="btn btn-outline-primary btn-sm">Review Answer</button>
+        </div>
+    </div>
+
+    <!-- ROW 1 -->
+    <div class="row g-3 mb-4">
+
+        <!-- Score Card -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm p-4" style="border-radius:12px;">
+
+                <h6 class="fw-bold mb-2">Physics 101</h6>
+                <p style="font-size:13px; color:gray;">
+                    Chapter 4: Dynamics - Basic Concepts
+                </p>
+
+                <div class="text-center my-3">
+                    <div style="font-size:36px; font-weight:bold; color:#0d6efd;">
+                        75%
+                    </div>
+                    <div style="color:#198754; font-weight:600;">Passed</div>
+                </div>
+
+                <div class="row text-center mt-3">
+
+                    <div class="col-6 mb-3">
+                        <strong>15</strong>
+                        <div style="font-size:12px; color:gray;">Obtained Marks</div>
+                    </div>
+
+                    <div class="col-6 mb-3">
+                        <strong>20</strong>
+                        <div style="font-size:12px; color:gray;">Total Marks</div>
+                    </div>
+
+                    <div class="col-6">
+                        <strong style="color:#198754;">15</strong>
+                        <div style="font-size:12px; color:gray;">Correct</div>
+                    </div>
+
+                    <div class="col-6">
+                        <strong style="color:#dc3545;">3</strong>
+                        <div style="font-size:12px; color:gray;">Incorrect</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Student Details -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm p-4" style="border-radius:12px;">
+
+                <h6 class="fw-bold mb-3">Student Details</h6>
+
+                <div style="font-size:14px;">
+                    <p><strong>Name:</strong> Alex Morgan</p>
+                    <p><strong>Course:</strong> B.Tech CSE</p>
+                    <p><strong>Date:</strong> 10 Feb 2026</p>
+                    <p><strong>Time Taken:</strong> 35 mins</p>
+                    <p><strong>Attempt:</strong> 1st Attempt</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="row g-3 mb-4">
+
+        <!-- Performance Analysis -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm p-4" style="border-radius:12px;">
+
+                <h6 class="fw-bold mb-3">Performance Analysis</h6>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Class Average</span>
+                        <span>65%</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>You</span>
+                        <span style="color:#0d6efd;">75%</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Top Scorer</span>
+                        <span>92%</span>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="d-flex justify-content-between">
+                    <div>
+                        ⏱ <strong>1.5 min</strong>
+                        <div style="font-size:12px; color:gray;">Avg Time / Question</div>
+                    </div>
+
+                    <div>
+                        🎯 <strong>83%</strong>
+                        <div style="font-size:12px; color:gray;">Accuracy Rate</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Topic Breakdown -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm p-4" style="border-radius:12px;">
+
+                <div class="d-flex justify-content-between mb-3">
+                    <h6 class="fw-bold">Topic Breakdown</h6>
+                    <button class="btn btn-sm btn-outline-primary">View Full Report</button>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Kinematics</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="progress" style="height:6px;">
+                        <div class="progress-bar bg-success" style="width:80%;"></div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Dynamics</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="progress" style="height:6px;">
+                        <div class="progress-bar bg-primary" style="width:70%;"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <span>Work & Energy</span>
+                        <span>60%</span>
+                    </div>
+                    <div class="progress" style="height:6px;">
+                        <div class="progress-bar bg-warning" style="width:60%;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- QUESTION REVIEW -->
+    <div class="card shadow-sm p-4 mb-4" style="border-radius:12px;">
+        <h6 class="fw-bold mb-3">Question Review</h6>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Q.No</th>
+                        <th>Status</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+                <tbody id="reviewTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-outline-secondary">← Back</button>
+        <div>
+            <button class="btn btn-warning me-2">Retry Quiz</button>
+            <button class="btn btn-primary"onclick="window.location.href='studentDashboard.html'">Go to Dashboard</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+let table = document.getElementById("reviewTable");
+
+for(let i=1;i<=20;i++){
+    let status="Correct", color="green";
+
+    if(i%5===0){ status="Incorrect"; color="red"; }
+    if(i%7===0){ status="Unanswered"; color="gray"; }
+
+    table.innerHTML+=`
+    <tr>
+        <td>${i}</td>
+        <td style="color:${color}; font-weight:600;">${status}</td>
+        <td>${status==="Correct"?"1":"0"}</td>
+    </tr>`;
+}
+</script>
+
+</body>
+</html>
