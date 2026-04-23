@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Attempt</title>
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body style="background-color:#f4f6f9; font-family: Arial, sans-serif;">
+
+<!-- Navbar -->
+<nav class="navbar bg-white shadow-sm px-4 py-2 d-flex justify-content-between align-items-center">
+    <div class="fw-bold" style="font-size:18px;">
+        Physics 101: Mid-Term Exam
+        <div style="font-size:12px; color:gray;">Chapter 4: Dynamics</div>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+        <div class="px-3 py-1 rounded-pill" style="background:#eaf3ff; font-size:14px;">
+            ⏱ 45 : 21
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+            <img src="https://i.pravatar.cc/30" style="border-radius:50%;" alt="user">
+            <span style="font-size:14px;">Alex Morgan</span>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container-fluid mt-3">
+    <div class="row g-3">
+
+        <!-- LEFT SECTION -->
+        <div class="col-lg-9">
+
+            <div class="card shadow-sm p-4" style="border-radius:10px;">
+
+                <!-- Question Header -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span style="font-size:12px; color:#0d6efd; font-weight:600;">
+                        QUESTION 3 OF 20
+                    </span>
+                    <span>🏳️</span>
+                </div>
+
+                <!-- Question Title -->
+                <h5 class="fw-bold mb-3">Newton's Laws of Motion</h5>
+
+                <!-- Question -->
+                <p style="font-size:14px;">
+                    Which of the following equations correctly represents Newton's Second Law of Motion regarding the relationship between force, mass, and acceleration?
+                </p>
+
+               <!-- Options -->
+<div id="options">
+
+    <!-- Option A -->
+    <div class="p-3 mb-3 border rounded d-flex align-items-center"
+         style="cursor:pointer;"
+         onclick="selectOption(this)">
+        <input type="radio" name="q" class="me-2">
+        <strong class="me-2">A.</strong>
+        <span>F = m / a</span>
+    </div>
+
+    <!-- Option B (Selected) -->
+    <div class="p-3 mb-3 border rounded d-flex align-items-center"
+         style="cursor:pointer; border:2px solid #0d6efd;"
+         onclick="selectOption(this)">
+        <input type="radio" name="q" checked class="me-2">
+        <strong class="me-2">B.</strong>
+        <span>F = m × a</span>
+    </div>
+
+    <!-- Option C -->
+    <div class="p-3 mb-3 border rounded d-flex align-items-center"
+         style="cursor:pointer;"
+         onclick="selectOption(this)">
+        <input type="radio" name="q" class="me-2">
+        <strong class="me-2">C.</strong>
+        <span>F = m + a</span>
+    </div>
+
+    <!-- Option D -->
+    <div class="p-3 mb-3 border rounded d-flex align-items-center"
+         style="cursor:pointer;"
+         onclick="selectOption(this)">
+        <input type="radio" name="q" class="me-2">
+        <strong class="me-2">D.</strong>
+        <span>F = m - a</span>
+    </div>
+
+</div>
+
+                <!-- Navigation Buttons -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button class="btn btn-light border">← Previous</button>
+                    <button class="btn btn-primary px-4">Next →</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- RIGHT SECTION -->
+        <div class="col-lg-3">
+
+            <div class="card shadow-sm p-3" style="border-radius:10px;">
+
+                <div class="d-flex justify-content-between mb-2">
+                    <strong style="font-size:14px;">Question Navigator</strong>
+                    <span style="font-size:12px; color:gray;">3/20 Answered</span>
+                </div>
+
+                <!-- Grid -->
+                <div class="d-grid" style="grid-template-columns: repeat(5,1fr); gap:8px;">
+
+                    <!-- Buttons -->
+                    <script>
+                        for(let i=1;i<=20;i++){
+                            let color="#f1f1f1";
+                            if(i===3) color="#0d6efd";       // current
+                            else if(i<=2) color="#ffc107";  // answered
+
+                            document.write(`
+                                <div onclick="navigate(this)" 
+                                     style="
+                                     padding:8px;
+                                     text-align:center;
+                                     border-radius:6px;
+                                     background:${color};
+                                     cursor:pointer;
+                                     font-size:13px;">
+                                     ${i}
+                                </div>
+                            `);
+                        }
+                    </script>
+
+                </div>
+
+                <!-- Legend -->
+                <div class="mt-3" style="font-size:12px;">
+                    <div class="d-flex align-items-center mb-1">
+                        <span style="width:10px;height:10px;background:#ffc107;display:inline-block;margin-right:6px;"></span>
+                        Answered
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span style="width:10px;height:10px;background:#0d6efd;display:inline-block;margin-right:6px;"></span>
+                        Current
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span style="width:10px;height:10px;background:#ccc;display:inline-block;margin-right:6px;"></span>
+                        Unanswered
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button onclick="submitQuiz()" class="btn btn-danger w-100 mt-3">
+                    Submit Quiz
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+
+function selectOption(element){
+    let options = document.querySelectorAll('#options div');
+
+    options.forEach(opt=>{
+        opt.style.border="1px solid #ddd";
+        opt.querySelector("input").checked=false;
+    });
+
+    element.style.border="2px solid #0d6efd";
+    element.querySelector("input").checked=true;
+}
+
+function navigate(el){
+    alert("Go to Question " + el.innerText);
+}
+
+function submitQuiz(){
+    if(confirm("Are you sure you want to submit?")){
+        alert("Quiz Submitted!");
+    }
+}
+
+</script>
+
+</body>
+</html>
