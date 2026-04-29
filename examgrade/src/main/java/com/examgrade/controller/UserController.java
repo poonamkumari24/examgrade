@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,7 +30,7 @@ public class UserController {
 
     // REGISTER USER
 @PostMapping("/register")
-public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
+public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request) {
     try {
         User user = new User();
         user.setName(request.getName());
@@ -44,9 +43,7 @@ public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(mapToDTO(savedUser));
 
     } catch (RuntimeException e) {
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(Map.of("message", e.getMessage()));
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
     // GET ALL USERS
