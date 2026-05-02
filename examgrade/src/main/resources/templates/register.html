@@ -123,21 +123,22 @@ Student
 <!-- TEACHER REGISTER -->
 <div class="tab-pane fade show active" id="teacher">
 
-<form>
+<form id="teacherForm">
 
+<div id="teacherError" style="color:red; margin-bottom:10px;"></div>
 <div class="mb-3">
 <label class="form-label">Full Name</label>
-<input type="text" class="form-control" placeholder="Enter full name" required>
+<input type="text" id="teacherName" class="form-control" placeholder="Enter full name" required>
 </div>
 
 <div class="mb-3">
 <label class="form-label">Email Address</label>
-<input type="email" class="form-control" placeholder="Teacher email" required>
+<input type="email" id="teacherEmail" class="form-control" placeholder="Teacher email" required>
 </div>
 
 <div class="mb-2">
 <label class="form-label">Password</label>
-<input type="password" class="form-control"
+<input type="password" id="teacherPassword" class="form-control"
        placeholder="Create password"
        minlength="8"
        required>
@@ -158,6 +159,8 @@ Register as Teacher
 <div class="tab-pane fade" id="student">
 
 <form id="studentForm">
+
+    <div id="studentError" style="color:red; margin-bottom:10px;"></div>
 
 <div class="mb-3">
 <label class="form-label">Full Name</label>
@@ -242,6 +245,49 @@ document.getElementById("studentForm").addEventListener("submit", async function
             } else {
                 errorDiv.innerHTML = result;
             }
+        }
+
+    } catch (error) {
+        console.error(error);
+        errorDiv.innerHTML = "Server error. Try again.";
+    }
+});
+
+</script>
+<script>
+document.getElementById("teacherForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const errorDiv = document.getElementById("teacherError");
+    errorDiv.innerHTML = "";
+
+    const data = {
+        name: document.getElementById("teacherName").value,
+        email: document.getElementById("teacherEmail").value,
+        password: document.getElementById("teacherPassword").value,
+        role: "TEACHER"
+    };
+
+    try {
+        const response = await fetch("http://localhost:8080/api/users/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("Teacher registered successfully");
+            window.location.href = "login.html";
+        } else {
+            let errors = "";
+            for (let key in result) {
+                errors += "• " + result[key] + "<br>";
+            }
+            errorDiv.innerHTML = errors;
         }
 
     } catch (error) {
