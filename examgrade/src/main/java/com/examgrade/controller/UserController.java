@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.examgrade.dto.LoginRequest;
 import com.examgrade.dto.RegisterRequest;
 import com.examgrade.dto.UserDTO;
 import com.examgrade.entity.User;
@@ -38,6 +39,17 @@ public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest reques
     User savedUser = userService.registerUser(user);
 
     return ResponseEntity.ok(mapToDTO(savedUser));
+}
+@PostMapping("/login")
+public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
+    try {
+        User user = userService.loginUser(request.getEmail(), request.getPassword());
+
+        return ResponseEntity.ok(mapToDTO(user));
+
+    } catch (RuntimeException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 }
     // GET ALL USERS
    @GetMapping
