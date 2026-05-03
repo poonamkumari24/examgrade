@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.examgrade.dto.LoginRequest;
 import com.examgrade.dto.RegisterRequest;
 import com.examgrade.dto.UserDTO;
+import com.examgrade.entity.Role;
 import com.examgrade.entity.User;
 import com.examgrade.service.UserService;
 
@@ -34,7 +35,13 @@ public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest reques
     user.setName(request.getName());
     user.setEmail(request.getEmail());
     user.setPassword(request.getPassword());
-    user.setRole(request.getRole());
+
+    // 🔐 CONTROL ROLE HERE (NOT FRONTEND)
+    if ("STUDENT".equalsIgnoreCase(request.getRole())) {
+        user.setRole(Role.ROLE_STUDENT);
+    } else {
+        throw new RuntimeException("Invalid role");
+    }
 
     User savedUser = userService.registerUser(user);
 
