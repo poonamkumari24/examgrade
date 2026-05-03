@@ -1,6 +1,5 @@
 package com.examgrade.dto;
 
-import com.examgrade.entity.Role;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,7 +19,7 @@ public class RegisterRequest {
     private String password;
 
     @NotNull(message = "Role is required")
-    private Role role;
+    private String role;
    
   
 
@@ -49,11 +48,11 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }
