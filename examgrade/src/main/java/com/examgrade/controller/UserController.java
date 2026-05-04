@@ -19,6 +19,8 @@ import com.examgrade.entity.Role;
 import com.examgrade.entity.User;
 import com.examgrade.service.UserService;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/users")
@@ -36,12 +38,8 @@ public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest reques
     user.setEmail(request.getEmail());
     user.setPassword(request.getPassword());
 
-    // 🔐 CONTROL ROLE HERE (NOT FRONTEND)
-    if ("STUDENT".equalsIgnoreCase(request.getRole())) {
-        user.setRole(Role.ROLE_STUDENT);
-    } else {
-        throw new RuntimeException("Invalid role");
-    }
+    // ✅ FORCE ROLE
+    user.setRole(Role.ROLE_STUDENT);
 
     User savedUser = userService.registerUser(user);
 

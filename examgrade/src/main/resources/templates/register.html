@@ -39,18 +39,6 @@ body{
     font-weight:700;
 }
 
-/* ROLE TABS */
-.role-tabs .nav-link{
-    border-radius:8px;
-    font-weight:500;
-    color:#6c757d;
-}
-
-.role-tabs .nav-link.active{
-    background:#2f6df6;
-    color:#fff;
-}
-
 /* INPUT */
 .form-control{
     height:48px;
@@ -101,62 +89,10 @@ body{
     <p class="text-muted mb-0">Create your account</p>
 </div>
 
-<!-- ROLE SELECTOR -->
-<ul class="nav nav-pills nav-fill mb-4 role-tabs">
 
-<li class="nav-item">
-<button class="nav-link active" data-bs-toggle="pill" data-bs-target="#teacher">
-Teacher
-</button>
-</li>
-
-<li class="nav-item">
-<button class="nav-link" data-bs-toggle="pill" data-bs-target="#student">
-Student
-</button>
-</li>
-
-</ul>
-
-<div class="tab-content">
-
-<!-- TEACHER REGISTER -->
-<div class="tab-pane fade show active" id="teacher">
-
-<form id="teacherForm">
-
-<div id="teacherError" style="color:red; margin-bottom:10px;"></div>
-<div class="mb-3">
-<label class="form-label">Full Name</label>
-<input type="text" id="teacherName" class="form-control" placeholder="Enter full name" required>
-</div>
-
-<div class="mb-3">
-<label class="form-label">Email Address</label>
-<input type="email" id="teacherEmail" class="form-control" placeholder="Teacher email" required>
-</div>
-
-<div class="mb-2">
-<label class="form-label">Password</label>
-<input type="password" id="teacherPassword" class="form-control"
-       placeholder="Create password"
-       minlength="8"
-       required>
-</div>
-
-<div class="password-note mb-4">
-must be at least 8 characters long.
-</div>
-
-<button class="btn btn-register w-100">
-Register as Teacher
-</button>
-
-</form>
-</div>
 
 <!-- STUDENT REGISTER -->
-<div class="tab-pane fade" id="student">
+<div>
 
 <form id="studentForm">
 
@@ -189,8 +125,6 @@ Register as Student
 </button>
 
 </form>
-</div>
-
 </div>
 
 <!-- LOGIN LINK -->
@@ -253,49 +187,6 @@ document.getElementById("studentForm").addEventListener("submit", async function
     }
 });
 
-</script>
-<script>
-document.getElementById("teacherForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const errorDiv = document.getElementById("teacherError");
-    errorDiv.innerHTML = "";
-
-    const data = {
-        name: document.getElementById("teacherName").value,
-        email: document.getElementById("teacherEmail").value,
-        password: document.getElementById("teacherPassword").value,
-        role: "TEACHER"
-    };
-
-    try {
-        const response = await fetch("http://localhost:8080/api/users/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert("Teacher registered successfully");
-            window.location.href = "login.html";
-        } else {
-            let errors = "";
-            for (let key in result) {
-                errors += "• " + result[key] + "<br>";
-            }
-            errorDiv.innerHTML = errors;
-        }
-
-    } catch (error) {
-        console.error(error);
-        errorDiv.innerHTML = "Server error. Try again.";
-    }
-});
-</script>
 
 </body>
 </html>
