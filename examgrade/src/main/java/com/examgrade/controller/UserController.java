@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.examgrade.config.JwtUtil;
 import com.examgrade.dto.LoginRequest;
 import com.examgrade.dto.RegisterRequest;
 import com.examgrade.dto.UserDTO;
@@ -28,63 +29,87 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    // REGISTER USER
-@PostMapping("/register")
-public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request) {
+    // ✅ REGISTER USER (Student + Teacher only)
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request) {
 
-    User user = new User();
-    user.setName(request.getName());
-    user.setEmail(request.getEmail());
-    user.setPassword(request.getPassword());
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
 
-    // ✅ FORCE ROLE
-    user.setRole(Role.ROLE_STUDENT);
+        // 🔥 ROLE CONTROL (IMPORTANT)
+        if ("STUDENT".equalsIgnoreCase(request.getRole())) {
+            user.setRole(Role.ROLE_STUDENT);
+        } 
+        else if ("TEACHER".equalsIgnoreCase(request.getRole())) {
+            user.setRole(Role.ROLE_TEACHER);
+        } 
+        else {
+            throw new RuntimeException("Invalid role");
+        }
 
-    User savedUser = userService.registerUser(user);
+        User savedUser = userService.registerUser(user);
 
-    return ResponseEntity.ok(mapToDTO(savedUser));
-}
-@PostMapping("/login")
+        return ResponseEntity.ok(mapToDTO(savedUser));
+    }
+
+    // ✅ LOGIN
+  
+
+    @PostMapping("/login")
 public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
-    try {
-        User user = userService.loginUser(request.getEmail(), request.getPassword());
 
-        return ResponseEntity.ok(mapToDTO(user));
+    try {
+        User user = userService.loginUser(
+                request.getEmail(),
+                request.getPassword()
+        );
+
+        // ✅ GENERATE JWT TOKEN
+        String token = jwtUtil.generateToken(
+                user.getEmail(),
+                user.getRole().name()
+        );
+
+        return ResponseEntity.ok(token); // 🔥 RETURN TOKEN ONLY
 
     } catch (RuntimeException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
-    // GET ALL USERS
-   @GetMapping
-public List<UserDTO> getAllUsers() {
-    return userService.getAllUsers()
-            .stream()
-            .map(user -> {
-               return mapToDTO(user);
-            })
-            .toList();
-}
 
-    // GET USER BY ID
-  @GetMapping("/{id}")
-public UserDTO getUserById(@PathVariable Long id) {
-    User user = userService.getUserById(id);
-
-    if (user == null) {
-       throw new RuntimeException("User not found with id: " + id);
+    // ✅ GET ALL USERS
+    @GetMapping
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers()
+                .stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 
-   return mapToDTO(user);
-}
-private UserDTO mapToDTO(User user) {
-    UserDTO dto = new UserDTO();
-    dto.setId(user.getId());
-    dto.setName(user.getName());
-    dto.setEmail(user.getEmail());
-    dto.setRole(user.getRole());
-    return dto;
-}
+    // ✅ GET USER BY ID
+    @GetMapping("/{id}")
+    public UserDTO getUserById(@PathVariable Long id) {
+        User user = userService.getUserById(id);
 
+        if (user == null) {
+            throw new RuntimeException("User not found with id: " + id);
+        }
+
+        return mapToDTO(user);
+    }
+
+    // ✅ DTO MAPPER
+    private UserDTO mapToDTO(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        return dto;
+    }
 }

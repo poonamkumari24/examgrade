@@ -307,7 +307,7 @@ document.getElementById("adminLoginForm").addEventListener("submit", async funct
         if (response.ok) {
 
             // 🔥 CRITICAL ROLE CHECK
-            if (result.role !== "ADMIN") {
+            if (result.role !== "ROLE_ADMIN") {
                 errorDiv.innerHTML = "You are not an admin";
                 return;
             }
