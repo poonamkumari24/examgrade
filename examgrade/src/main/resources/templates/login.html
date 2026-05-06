@@ -218,13 +218,22 @@ document.getElementById("studentLoginForm").addEventListener("submit", async fun
         const result = await response.json();
 
         if (response.ok) {
-            alert("Login successful");
 
-            // 🔥 STORE USER (temporary)
-            localStorage.setItem("user", JSON.stringify(result));
+    // ✅ SAVE TOKEN
+    localStorage.setItem("token", result.token);
 
-            window.location.href = "dashboard.html"; // or student page
-        } else {
+    // ✅ SAVE USER
+    localStorage.setItem("user", JSON.stringify(result.user));
+
+    // ✅ STRICT ROLE CHECK
+    if (result.user.role !== "ROLE_STUDENT") {
+        errorDiv.innerHTML = "You are not a student";
+        return;
+    }
+
+    // ✅ REDIRECT
+    window.location.href = "studentDashboard.html";
+} else {
             errorDiv.innerHTML = result;
         }
 
@@ -259,19 +268,17 @@ document.getElementById("teacherLoginForm").addEventListener("submit", async fun
 
         if (response.ok) {
 
-            // 🔥 IMPORTANT CHECK (DON’T SKIP THIS)
-            if (result.role !== "TEACHER") {
-                errorDiv.innerHTML = "You are not a teacher";
-                return;
-            }
+    if (result.user.role !== "ROLE_TEACHER") {
+        errorDiv.innerHTML = "You are not a teacher";
+        return;
+    }
 
-            alert("Teacher login successful");
+    // ✅ FIXED
+    localStorage.setItem("token", result.token);
+    localStorage.setItem("user", JSON.stringify(result.user));
 
-            localStorage.setItem("user", JSON.stringify(result));
-
-            window.location.href = "teacher-dashboard.html";
-
-        } else {
+    window.location.href = "teacher-dashboard.html";
+} else {
             errorDiv.innerHTML = result;
         }
 
@@ -306,19 +313,19 @@ document.getElementById("adminLoginForm").addEventListener("submit", async funct
 
         if (response.ok) {
 
-            // 🔥 CRITICAL ROLE CHECK
-            if (result.role !== "ROLE_ADMIN") {
-                errorDiv.innerHTML = "You are not an admin";
-                return;
-            }
+    if (result.user.role !== "ROLE_ADMIN") {
+        errorDiv.innerHTML = "You are not an admin";
+        return;
+    }
 
-            alert("Admin login successful");
+    // ✅ store token
+    localStorage.setItem("token", result.token);
 
-            localStorage.setItem("user", JSON.stringify(result));
+    // ✅ store user
+    localStorage.setItem("user", JSON.stringify(result.user));
 
-            window.location.href = "admin-dashboard.html";
-
-        } else {
+    window.location.href = "adminDashboard.html";
+} else {
             errorDiv.innerHTML = result;
         }
 

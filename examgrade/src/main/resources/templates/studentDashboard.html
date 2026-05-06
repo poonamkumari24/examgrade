@@ -26,7 +26,7 @@
                 <div class="d-flex">
                 <!-- SIDEBAR -->
                 <div style="width:260px;background:white;height:100vh;padding:20px;position:fixed;">
-                <div class="text-center mb-4">
+                <div class="text-center mb-4 profile">
                 <i class="fa-solid fa-user-graduate fa-2x"></i>
                                 <h6 class="mt-2 mb-0">Alex Student</h6>
                                 <small style="color:gray;">Student Portal</small>
@@ -37,16 +37,17 @@
                                 <a href="studentMyresult.html" class="nav-link"> <i class="fa-solid fa-chart-column me-2"></i> My Results </a>
                                 <a href="#" class="nav-link"> <i class="fa-solid fa-envelope me-2"></i> Messages </a>
                             </div>
-                            <!-- Logout -->
-                             <div style="position:absolute;bottom:20px;width:220px;">
-                                <a href="#" class="nav-link text-danger"> <i class="fa-solid fa-right-from-bracket me-2"></i> Logout </a> 
-                             </div>
+                           <div style="position:absolute;bottom:20px;width:220px;">
+    <a href="#" class="nav-link text-danger logout-btn">
+        <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+    </a> 
+</div>
                             </div>
                             <!-- MAIN CONTENT -->
                              <div style="margin-left:280px;width:100%;padding:40px;">
                                 <!-- HEADER --> 
                                  <div class="d-flex justify-content-between align-items-center flex-wrap">
-                                     <div> <h2 style="font-weight:700;">Welcome back, Alex</h2>
+                                     <div> <h2 id="welcomeText" style="font-weight:700;"></h2>
                                         <p style="color:#6c757d;">Here is an overview of your academic progress.</p>
                                      </div>
                                      <div class="d-flex gap-3">
@@ -211,5 +212,90 @@ View All Results
                                    });
                                     });
                                      </script>
+  <script>                               
+document.addEventListener("DOMContentLoaded", function () {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    console.log("Loaded user:", user); // 🔥 debug
+
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    const nameElement = document.querySelector(".profile h6");
+
+    if (nameElement) {
+        nameElement.innerText = user.name;
+    } else {
+        console.error("Profile element not found");
+    }
+
+});
+</script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+        document.querySelector(".profile h6").innerText = user.name;
+    }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    // ❌ No user → redirect
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    // ❌ Wrong role → block
+    if (user.role !== "ROLE_STUDENT") {
+        alert("Access denied");
+        window.location.href = "login.html";
+        return;
+    }
+
+    // ✅ Set sidebar name
+    const sidebarName = document.querySelector(".profile h6");
+    if (sidebarName) {
+        sidebarName.innerText = user.name;
+    }
+
+    // ✅ Set header name
+    const welcome = document.getElementById("welcomeText");
+    if (welcome) {
+        welcome.innerText = "Welcome back, " + user.name;
+    }
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const logoutBtn = document.querySelector(".logout-btn");
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // optional confirmation
+            if (!confirm("Are you sure you want to logout?")) return;
+
+            // 🔥 remove auth data
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+
+            // redirect
+            window.location.href = "login.html";
+        });
+    }
+
+});
+</script>
  </body>
  </html>
