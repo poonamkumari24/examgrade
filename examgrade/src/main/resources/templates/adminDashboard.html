@@ -146,6 +146,7 @@ body{
 </head>
 
 <body>
+    <div id="content">
 
 <!-- SIDEBAR -->
 <div class="sidebar">
@@ -256,6 +257,7 @@ body{
 </div>
 
 </div>
+</div>
 
 <script>
 const ctx = document.getElementById('quizChart').getContext('2d');
@@ -294,5 +296,58 @@ links.forEach(link => {
     });
 });
 </script>
+<script>
+// ✅ GET DATA
+const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user"));
+
+// ❌ NO TOKEN
+if (!token || !user) {
+    window.location.href = "login.html";
+}
+
+// ❌ NOT ADMIN
+if (user.role !== "ROLE_ADMIN") {
+    alert("Access denied");
+    window.location.href = "login.html";
+}
+
+// ✅ SET ADMIN NAME IN UI
+document.querySelector(".profile h6").innerText = user.name;
+
+// ✅ OPTIONAL: change subtitle dynamically
+document.querySelector(".dashboard-subtitle").innerText =
+    "Welcome back, " + user.name + ". Here is what is happening today.";
+
+// ✅ VERIFY TOKEN WITH BACKEND
+fetch("http://localhost:8080/api/admin/dashboard", {
+    method: "GET",
+    headers: {
+        "Authorization": "Bearer " + token
+    }
+})
+.then(res => {
+    if (res.status === 403 || res.status === 401) {
+        alert("Session expired or access denied");
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+})
+.catch(err => {
+    console.error(err);
+    alert("Server error");
+});
+</script>
+<script>
+// ✅ Logout button logic
+document.querySelector(".logout-btn").addEventListener("click", function(e) {
+    e.preventDefault(); // stop default link behavior
+
+    localStorage.clear(); // remove token + user
+
+    window.location.href = "login.html";
+});
+</script>
+
 </body>
 </html>

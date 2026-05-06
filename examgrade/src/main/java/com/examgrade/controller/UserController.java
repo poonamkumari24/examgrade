@@ -1,6 +1,8 @@
 package com.examgrade.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +77,11 @@ public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
                 user.getRole().name()
         );
 
-        return ResponseEntity.ok(token); // 🔥 RETURN TOKEN ONLY
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("user", mapToDTO(user));
+
+        return ResponseEntity.ok(response); // 🔥 RETURN TOKEN ONLY
 
     } catch (RuntimeException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
