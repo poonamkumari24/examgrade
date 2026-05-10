@@ -268,18 +268,21 @@ document.getElementById("teacherLoginForm").addEventListener("submit", async fun
 
         if (response.ok) {
 
-    if (result.user.role !== "ROLE_TEACHER") {
-        errorDiv.innerHTML = "You are not a teacher";
-        return;
-    }
+            // Check role
+            if (result.user.role !== "ROLE_TEACHER") {
+                errorDiv.innerHTML = "You are not a teacher";
+                return;
+            }
 
-    // ✅ FIXED
-    localStorage.setItem("token", result.token);
-    localStorage.setItem("user", JSON.stringify(result.user));
+            // Save token and user
+            localStorage.setItem("token", result.token);
+            localStorage.setItem("user", JSON.stringify(result.user));
 
-    window.location.href = "teacher-dashboard.html";
-} else {
-            errorDiv.innerHTML = result;
+            // Redirect to teacher dashboard
+            window.location.href = "teacherDashboard.html";
+
+        } else {
+            errorDiv.innerHTML = result.error || "Invalid email or password";
         }
 
     } catch (error) {

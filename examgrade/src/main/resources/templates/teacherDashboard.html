@@ -10,7 +10,27 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<style>
+
+.nav-link{
+color:black;
+border-radius:6px;
+padding:10px;
+}
+
+.nav-link:hover{
+background:#0d6efd;
+color:white;
+}
+
+.nav-link.active{
+background:#0d6efd;
+color:white;
+}
+
+</style>
 </head>
+
 
 <body style="background:#f5f7fb;">
 
@@ -23,7 +43,7 @@
 
 <i class="fa-solid fa-user-tie fa-2x"></i>
 
-<h6 class="mt-2 mb-0">Teacher Name</h6>
+<h6 class="mt-2 mb-0" id="teacherName"> Teacher Name</h6>
 
 <small style="color:gray;">Teacher Portal</small>
 
@@ -57,7 +77,7 @@
 <!-- Logout -->
 <div style="position:absolute; bottom:20px; width:220px;">
 
-<a href="#" class="nav-link text-danger">
+<a href="#" class="nav-link text-danger" id="logoutBtn">
 <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
 </a>
 
@@ -74,8 +94,8 @@
 
 <h3 style="font-weight:bold;">Dashboard Overview</h3>
 
-<p style="color:gray;">
-Welcome back, Professor Smith. Here is what's happening today.
+<p style="color:gray;" id="welcomeMessage">
+Welcome back, Teacher. Here is what's happening today.
 </p>
 
 </div>
@@ -339,25 +359,62 @@ this.classList.add('active');
 
 </script>
 
-<style>
 
-.nav-link{
-color:black;
-border-radius:6px;
-padding:10px;
+<script>
+// ===============================
+// AUTHENTICATION CHECK
+// ===============================
+const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user"));
+
+// Not logged in
+if (!token || !user) {
+    window.location.href = "login.html";
 }
 
-.nav-link:hover{
-background:#0d6efd;
-color:white;
+// Wrong role
+if (user.role !== "ROLE_TEACHER") {
+    alert("Access denied");
+    localStorage.clear();
+    window.location.href = "login.html";
 }
 
-.nav-link.active{
-background:#0d6efd;
-color:white;
-}
+// ===============================
+// DISPLAY TEACHER NAME
+// ===============================
+document.getElementById("teacherName").innerText = user.name;
 
-</style>
+document.getElementById("welcomeMessage").innerText =
+    "Welcome back, " + user.name + ". Here is what's happening today.";
 
+// ===============================
+// VERIFY TOKEN WITH BACKEND
+// ===============================
+fetch("http://localhost:8080/api/teacher/dashboard", {
+    method: "GET",
+    headers: {
+        "Authorization": "Bearer " + token
+    }
+})
+.then(response => {
+    if (response.status === 401 || response.status === 403) {
+        alert("Session expired or access denied.");
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+})
+.catch(error => {
+    console.error("Server error:", error);
+});
+
+// ===============================
+// LOGOUT
+// ===============================
+document.getElementById("logoutBtn").addEventListener("click", function(e) {
+    e.preventDefault();
+    localStorage.clear();
+    window.location.href = "login.html";
+});
+</script>
 </body>
 </html>
