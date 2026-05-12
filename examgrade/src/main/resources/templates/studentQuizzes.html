@@ -73,159 +73,7 @@ style="width:250px; border-radius:20px;">
 
 <!-- QUIZ GRID -->
 <div class="row g-4" id="quizContainer">
-
-<!-- CARD 1 -->
-<div class="col-md-6 col-lg-3 quiz-card" data-title="biology" data-subject="science">
-
-<div class="card h-100" style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-
-<img src="https://images.unsplash.com/photo-1581091012184-5c1a5c7c02c3"
-style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
-
-<div class="card-body d-flex flex-column">
-
-<span class="badge bg-primary mb-2">Science</span>
-
-<h5>Biology 101</h5>
-
-<p style="font-size:14px; color:#6c757d;">
-Basics of cells, human body & plant systems.
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-list"></i> 15 Questions
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-clock"></i> 25 Minutes
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-calendar"></i> 6 April 2026
-</p>
-
-<button class="btn btn-primary mt-auto w-100">
-<i class="fa-solid fa-play"></i> Start Exam
-</button>
-
-</div>
-</div>
-</div>
-
-<!-- CARD 2 -->
-<div class="col-md-6 col-lg-3 quiz-card" data-title="history" data-subject="history">
-
-<div class="card h-100" style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-
-<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"
-style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
-
-<div class="card-body d-flex flex-column">
-
-<span class="badge bg-warning text-dark mb-2">History</span>
-
-<h5>World History</h5>
-
-<p style="font-size:14px; color:#6c757d;">
-Ancient civilizations and global events overview.
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-list"></i> 15 Questions
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-clock"></i> 25 Minutes
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-calendar"></i> 6 April 2026
-</p>
-
-<button class="btn btn-primary mt-auto w-100">
-<i class="fa-solid fa-play"></i> Start Exam
-</button>
-
-</div>
-</div>
-</div>
-
-<!-- CARD 3 -->
-<div class="col-md-6 col-lg-3 quiz-card" data-title="math" data-subject="math">
-
-<div class="card h-100" style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-
-<img src="https://images.unsplash.com/photo-1509228468518-180dd4864904"
-style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
-
-<div class="card-body d-flex flex-column">
-
-<span class="badge bg-success mb-2">Math</span>
-
-<h5>Algebra Test</h5>
-
-<p style="font-size:14px; color:#6c757d;">
-Linear equations, polynomials and basics.
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-list"></i> 25 Questions
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-clock"></i> 40 Minutes
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-calendar"></i> 7 April 2026
-</p>
-
-<button class="btn btn-primary mt-auto w-100">
-<i class="fa-solid fa-play"></i> Start Exam
-</button>
-
-</div>
-</div>
-</div>
-
-<!-- CARD 4 -->
-<div class="col-md-6 col-lg-3 quiz-card" data-title="physics" data-subject="science">
-
-<div class="card h-100" style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-
-<img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb"
-style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
-
-<div class="card-body d-flex flex-column">
-
-<span class="badge bg-primary mb-2">Science</span>
-
-<h5>Physics Basics</h5>
-
-<p style="font-size:14px; color:#6c757d;">
-Motion, force, and energy fundamentals.
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-list"></i> 18 Questions
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-clock"></i> 35 Minutes
-</p>
-
-<p style="font-size:13px; color:#6c757d;">
-<i class="fa-solid fa-calendar"></i> 8 April 2026
-</p>
-
-<button class="btn btn-primary mt-auto w-100">
-<i class="fa-solid fa-play"></i> Start Exam
-</button>
-
-</div>
-</div>
-</div>
-
+    <!-- Quiz cards will be loaded dynamically -->
 </div>
 
 <!-- PAGINATION -->
@@ -244,37 +92,207 @@ Motion, force, and energy fundamentals.
 
 <!-- JAVASCRIPT -->
 <script>
+/* ==========================================================
+   AUTHENTICATION CHECK
+========================================================== */
+const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user"));
 
+if (!token || !user) {
+    window.location.href = "login.html";
+}
+
+if (user.role !== "ROLE_STUDENT") {
+    alert("Access denied");
+    window.location.href = "login.html";
+}
+
+/* ==========================================================
+   DOM ELEMENTS
+========================================================== */
+const API_URL = "http://localhost:8080/api/student/quizzes";
+const quizContainer = document.getElementById("quizContainer");
 const searchInput = document.getElementById("searchInput");
 const subjectFilter = document.getElementById("subjectFilter");
-const cards = document.querySelectorAll(".quiz-card");
 
+/* ==========================================================
+   STORE LOADED QUIZZES
+========================================================== */
+let allQuizzes = [];
+
+/* ==========================================================
+   LOAD QUIZZES FROM BACKEND
+========================================================== */
+async function loadQuizzes() {
+    try {
+        const response = await fetch(API_URL, {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+            localStorage.clear();
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error("Failed to load quizzes");
+        }
+
+        allQuizzes = await response.json();
+
+        populateSubjectFilter();
+        renderQuizzes(allQuizzes);
+
+    } catch (error) {
+        console.error(error);
+        quizContainer.innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    Failed to load quizzes from server.
+                </div>
+            </div>
+        `;
+    }
+}
+
+/* ==========================================================
+   POPULATE SUBJECT FILTER DYNAMICALLY
+========================================================== */
+function populateSubjectFilter() {
+    const subjects = [...new Set(
+        allQuizzes
+            .map(q => q.subject)
+            .filter(subject => subject && subject.trim() !== "")
+    )];
+
+    subjectFilter.innerHTML = `
+        <option value="all">All Subjects</option>
+    `;
+
+    subjects.forEach(subject => {
+        subjectFilter.innerHTML += `
+            <option value="${subject.toLowerCase()}">
+                ${subject}
+            </option>
+        `;
+    });
+}
+
+/* ==========================================================
+   RENDER QUIZ CARDS
+========================================================== */
+function renderQuizzes(quizzes) {
+    if (quizzes.length === 0) {
+        quizContainer.innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-info">
+                    No quizzes available.
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    quizContainer.innerHTML = "";
+
+    quizzes.forEach(quiz => {
+        quizContainer.innerHTML += `
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100"
+                     style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1509228468518-180dd4864904"
+                        style="height:160px; object-fit:cover;
+                               border-top-left-radius:12px;
+                               border-top-right-radius:12px;">
+
+                    <div class="card-body d-flex flex-column">
+
+                        <span class="badge bg-primary mb-2">
+                            ${quiz.subject || "General"}
+                        </span>
+
+                        <h5>${quiz.title}</h5>
+
+                        <p style="font-size:14px; color:#6c757d;">
+                            ${quiz.description || "No description provided."}
+                        </p>
+
+                        <p style="font-size:13px; color:#6c757d;">
+                            <i class="fa-solid fa-list"></i>
+                            ${quiz.questionCount || 0} Questions
+                        </p>
+
+                        <p style="font-size:13px; color:#6c757d;">
+                            <i class="fa-solid fa-clock"></i>
+                            ${quiz.durationMinutes || 0} Minutes
+                        </p>
+
+                        <p style="font-size:13px; color:#6c757d;">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            ${quiz.classGroup || "Not Assigned"}
+                        </p>
+
+                        <button class="btn btn-primary mt-auto w-100"
+                                onclick="startQuiz(${quiz.id})">
+                            <i class="fa-solid fa-play"></i>
+                            Start Exam
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+/* ==========================================================
+   SEARCH + FILTER
+========================================================== */
 function filterQuizzes() {
+    const search = searchInput.value.toLowerCase().trim();
+    const selectedSubject = subjectFilter.value.toLowerCase();
 
-let search = searchInput.value.toLowerCase();
-let subject = subjectFilter.value;
+    const filtered = allQuizzes.filter(quiz => {
+        const title = (quiz.title || "").toLowerCase();
+        const subject = (quiz.subject || "").toLowerCase();
 
-cards.forEach(card => {
+        const matchesSearch =
+            title.includes(search) ||
+            subject.includes(search);
 
-let title = card.dataset.title;
-let cardSubject = card.dataset.subject;
+        const matchesSubject =
+            selectedSubject === "all" ||
+            subject === selectedSubject;
 
-let matchSearch = title.includes(search);
-let matchSubject = subject === "all" || subject === cardSubject;
+        return matchesSearch && matchesSubject;
+    });
 
-if(matchSearch && matchSubject){
-card.style.display = "block";
-}else{
-card.style.display = "none";
+    renderQuizzes(filtered);
 }
 
-});
-
+/* ==========================================================
+   START QUIZ
+========================================================== */
+function startQuiz(quizId) {
+    localStorage.setItem("currentQuizId", quizId);
+    window.location.href = "takeQuiz.html";
 }
 
+/* ==========================================================
+   EVENT LISTENERS
+========================================================== */
 searchInput.addEventListener("input", filterQuizzes);
 subjectFilter.addEventListener("change", filterQuizzes);
 
+/* ==========================================================
+   INITIAL LOAD
+========================================================== */
+loadQuizzes();
 </script>
 
 </body>
