@@ -91,6 +91,14 @@ style="width:250px; border-radius:20px;">
 </div>
 
 <!-- JAVASCRIPT -->
+ <script >
+  const quizId = localStorage.getItem("currentQuizId");
+
+if (!quizId) {
+    alert("No quiz selected.");
+    window.location.href = "studentQuizzes.html";
+}
+ </script>
 <script>
 /* ==========================================================
    AUTHENTICATION CHECK
