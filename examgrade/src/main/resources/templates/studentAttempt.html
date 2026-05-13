@@ -14,8 +14,11 @@
 <!-- Navbar -->
 <nav class="navbar bg-white shadow-sm px-4 py-2 d-flex justify-content-between align-items-center">
     <div class="fw-bold" style="font-size:18px;">
-        Physics 101: Mid-Term Exam
-        <div style="font-size:12px; color:gray;">Chapter 4: Dynamics</div>
+       <span id="quizTitle">Loading...</span>
+        <div style="font-size:12px; color:gray;">
+            <div id="quizSubject" style="font-size:12px; color:gray;">Loading...
+            </div>
+        </div>
     </div>
 
     <div class="d-flex align-items-center gap-3">
@@ -25,7 +28,7 @@
 
         <div class="d-flex align-items-center gap-2">
             <img src="https://i.pravatar.cc/30" style="border-radius:50%;" alt="user">
-            <span style="font-size:14px;">Alex Morgan</span>
+           <span id="studentName" style="font-size:14px;">Student</span>
         </div>
     </div>
 </nav>
@@ -41,65 +44,34 @@
 
                 <!-- Question Header -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span style="font-size:12px; color:#0d6efd; font-weight:600;">
-                        QUESTION 3 OF 20
+                       <span id="questionCounter"
+      style="font-size:12px; color:#0d6efd; font-weight:600;">
+    Loading... 
                     </span>
                     <span>🏳️</span>
                 </div>
 
-                <!-- Question Title -->
-                <h5 class="fw-bold mb-3">Newton's Laws of Motion</h5>
+                
 
                 <!-- Question -->
-                <p style="font-size:14px;">
-                    Which of the following equations correctly represents Newton's Second Law of Motion regarding the relationship between force, mass, and acceleration?
-                </p>
+                <p id="questionText" style="font-size:14px;"></p>
 
                <!-- Options -->
 <div id="options">
-
-    <!-- Option A -->
-    <div class="p-3 mb-3 border rounded d-flex align-items-center"
-         style="cursor:pointer;"
-         onclick="selectOption(this)">
-        <input type="radio" name="q" class="me-2">
-        <strong class="me-2">A.</strong>
-        <span>F = m / a</span>
-    </div>
-
-    <!-- Option B (Selected) -->
-    <div class="p-3 mb-3 border rounded d-flex align-items-center"
-         style="cursor:pointer; border:2px solid #0d6efd;"
-         onclick="selectOption(this)">
-        <input type="radio" name="q" checked class="me-2">
-        <strong class="me-2">B.</strong>
-        <span>F = m × a</span>
-    </div>
-
-    <!-- Option C -->
-    <div class="p-3 mb-3 border rounded d-flex align-items-center"
-         style="cursor:pointer;"
-         onclick="selectOption(this)">
-        <input type="radio" name="q" class="me-2">
-        <strong class="me-2">C.</strong>
-        <span>F = m + a</span>
-    </div>
-
-    <!-- Option D -->
-    <div class="p-3 mb-3 border rounded d-flex align-items-center"
-         style="cursor:pointer;"
-         onclick="selectOption(this)">
-        <input type="radio" name="q" class="me-2">
-        <strong class="me-2">D.</strong>
-        <span>F = m - a</span>
-    </div>
-
 </div>
 
                 <!-- Navigation Buttons -->
                 <div class="d-flex justify-content-between mt-4">
-                    <button class="btn btn-light border">← Previous</button>
-                    <button class="btn btn-primary px-4">Next →</button>
+                   <button id="prevBtn"
+        class="btn btn-light border"
+        onclick="previousQuestion()">
+    ← Previous
+</button>
+                    <button id="nextBtn"
+        class="btn btn-primary px-4"
+        onclick="handleNext()">
+    Next →
+</button>
                 </div>
 
             </div>
@@ -112,35 +84,16 @@
 
                 <div class="d-flex justify-content-between mb-2">
                     <strong style="font-size:14px;">Question Navigator</strong>
-                    <span style="font-size:12px; color:gray;">3/20 Answered</span>
+                   <span id="answeredCount" style="font-size:12px; color:gray;">
+    0/0 Answered
+</span>
                 </div>
 
                 <!-- Grid -->
-                <div class="d-grid" style="grid-template-columns: repeat(5,1fr); gap:8px;">
-
-                    <!-- Buttons -->
-                    <script>
-                        for(let i=1;i<=20;i++){
-                            let color="#f1f1f1";
-                            if(i===3) color="#0d6efd";       // current
-                            else if(i<=2) color="#ffc107";  // answered
-
-                            document.write(`
-                                <div onclick="navigate(this)" 
-                                     style="
-                                     padding:8px;
-                                     text-align:center;
-                                     border-radius:6px;
-                                     background:${color};
-                                     cursor:pointer;
-                                     font-size:13px;">
-                                     ${i}
-                                </div>
-                            `);
-                        }
-                    </script>
-
-                </div>
+                <div id="questionNavigator"
+     class="d-grid"
+     style="grid-template-columns: repeat(5,1fr); gap:8px;">
+</div>
 
                 <!-- Legend -->
                 <div class="mt-3" style="font-size:12px;">
@@ -171,30 +124,222 @@
 </div>
 
 <!-- JS -->
-<script>
+ <script>
+const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user"));
+const quizId = localStorage.getItem("currentQuizId");
 
-function selectOption(element){
-    let options = document.querySelectorAll('#options div');
-
-    options.forEach(opt=>{
-        opt.style.border="1px solid #ddd";
-        opt.querySelector("input").checked=false;
-    });
-
-    element.style.border="2px solid #0d6efd";
-    element.querySelector("input").checked=true;
+if (!token || !user || !quizId) {
+    alert("Session expired or no quiz selected.");
+    window.location.href = "availableQuizzes.html";
 }
 
-function navigate(el){
-    alert("Go to Question " + el.innerText);
-}
+document.getElementById("studentName").textContent = user.name;
 
-function submitQuiz(){
-    if(confirm("Are you sure you want to submit?")){
-        alert("Quiz Submitted!");
+let quizData = null;
+let currentQuestionIndex = 0;
+let answers = {};
+
+/* Load quiz from backend */
+async function loadQuiz() {
+    try {
+        const response = await fetch(
+            `http://localhost:8080/api/student/quizzes/${quizId}`,
+            {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load quiz");
+        }
+
+        quizData = await response.json();
+
+        document.getElementById("quizTitle").textContent =
+            quizData.title;
+
+        document.getElementById("quizSubject").textContent =
+            quizData.subject || "";
+
+        renderQuestion();
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to load quiz.");
     }
 }
 
+/* Render current question */
+function renderQuestion() {
+    const question = quizData.questions[currentQuestionIndex];
+
+    document.getElementById("questionCounter").textContent =
+        `QUESTION ${currentQuestionIndex + 1} OF ${quizData.questions.length}`;
+
+    document.getElementById("questionText").textContent =
+        question.questionText;
+
+    const optionsContainer =
+        document.getElementById("options");
+
+    optionsContainer.innerHTML = "";
+
+    question.options.forEach((option, index) => {
+        const selected =
+            answers[question.id] === option.id;
+
+        const div = document.createElement("div");
+
+        div.className =
+            "p-3 mb-3 border rounded d-flex align-items-center";
+
+        div.style.cursor = "pointer";
+
+        if (selected) {
+            div.style.border = "2px solid #0d6efd";
+        }
+
+        div.innerHTML = `
+            <input type="radio"
+                   class="me-2"
+                   ${selected ? "checked" : ""}>
+            <strong class="me-2">
+                ${String.fromCharCode(65 + index)}.
+            </strong>
+            <span>${option.optionText}</span>
+        `;
+
+        div.onclick = () =>
+            selectOption(question.id, option.id);
+
+        optionsContainer.appendChild(div);
+    });
+
+   updateNavigationButtons();
+renderQuestionNavigator();
+}
+
+/* Save selected answer */
+function selectOption(questionId, optionId) {
+    answers[questionId] = optionId;
+    renderQuestion();
+}
+
+/* Previous question */
+function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+    }
+}
+
+/* Next question */
+function nextQuestion() {
+    if (currentQuestionIndex <
+        quizData.questions.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
+    }
+}
+
+/* Update button labels/states */
+function updateNavigationButtons() {
+    const prevBtn =
+        document.getElementById("prevBtn");
+
+    const nextBtn =
+        document.getElementById("nextBtn");
+
+    prevBtn.disabled =
+        currentQuestionIndex === 0;
+
+    if (currentQuestionIndex ===
+        quizData.questions.length - 1) {
+        nextBtn.textContent = "Finish";
+    } else {
+        nextBtn.textContent = "Next →";
+    }
+}
+
+/* Submit placeholder */
+function submitQuiz() {
+    if (confirm("Submit this quiz?")) {
+        console.log("Selected answers:", answers);
+        alert("Quiz submitted successfully!");
+        localStorage.removeItem("currentQuizId");
+        window.location.href = "availableQuizzes.html";
+    }
+}
+
+/* Next button behavior */
+function handleNext() {
+    if (currentQuestionIndex ===
+        quizData.questions.length - 1) {
+        submitQuiz();
+    } else {
+        nextQuestion();
+    }
+}
+
+/* Start */
+loadQuiz();
+function renderQuestionNavigator() {
+    const navigator =
+        document.getElementById("questionNavigator");
+
+    const answeredCountElement =
+        document.getElementById("answeredCount");
+
+    navigator.innerHTML = "";
+
+    const totalQuestions = quizData.questions.length;
+    const answeredQuestions =
+        Object.keys(answers).length;
+
+    answeredCountElement.textContent =
+        `${answeredQuestions}/${totalQuestions} Answered`;
+
+    quizData.questions.forEach((question, index) => {
+        const button = document.createElement("div");
+
+        let background = "#f1f1f1"; // unanswered
+        let color = "black";
+
+        // Current question
+        if (index === currentQuestionIndex) {
+            background = "#0d6efd";
+            color = "white";
+        }
+        // Answered but not current
+        else if (answers[question.id]) {
+            background = "#ffc107";
+            color = "black";
+        }
+
+        button.style.cssText = `
+            padding: 8px;
+            text-align: center;
+            border-radius: 6px;
+            background: ${background};
+            color: ${color};
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        `;
+
+        button.textContent = index + 1;
+
+        button.onclick = function () {
+            currentQuestionIndex = index;
+            renderQuestion();
+        };
+
+        navigator.appendChild(button);
+    });
+}
 </script>
 
 </body>
