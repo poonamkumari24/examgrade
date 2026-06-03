@@ -2,6 +2,7 @@ package com.examgrade.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import com.examgrade.dto.OptionAttemptDTO;
 import com.examgrade.dto.QuestionAttemptDTO;
 import com.examgrade.dto.QuizAttemptDTO;
 import com.examgrade.dto.QuizResponseDTO;
+import com.examgrade.dto.QuizResultDTO;
+import com.examgrade.dto.QuizSubmissionDTO;
 import com.examgrade.entity.Option;
 import com.examgrade.entity.Question;
 import com.examgrade.entity.Quiz;
@@ -114,4 +117,67 @@ public class StudentQuizServiceImpl implements StudentQuizService {
 
         return quizDTO;
     }
+    @Override
+public QuizResultDTO submitQuiz(Long quizId, QuizSubmissionDTO submission) {
+
+    // Load quiz
+    Quiz quiz = quizRepository.findById(quizId)
+            .orElseThrow(() -> new RuntimeException("Quiz not found"));
+
+    int totalQuestions = quiz.getQuestions().size();
+    int correctAnswers = 0;
+
+    // Student answers: questionId -> selectedOptionId
+    Map<Long, Long> submittedAnswers = submission.getAnswers();
+
+    // Check each question
+    for (Question question : quiz.getQuestions()) {
+
+        Long selectedOptionId = submittedAnswers.get(question.getId());
+
+        // If no answer selected, skip
+        if (selectedOptionId == null) {
+            continue;
+        }
+
+        // Find the correct option
+        for (Option option : question.getOptions()) {
+            if (option.isCorrect()
+                    && option.getId().equals(selectedOptionId)) {
+                correctAnswers++;
+                break;
+            }
+        }
+    }
+
+    int incorrectAnswers = totalQuestions - correctAnswers;
+
+    // Calculate marks
+    int totalMarks = quiz.getTotalMarks();
+
+    // Protect against division by zero
+    int obtainedMarks = 0;
+    if (totalQuestions > 0) {
+        obtainedMarks = (correctAnswers * totalMarks) / totalQuestions;
+    }
+
+    double percentage = 0;
+    if (totalMarks > 0) {
+        percentage = (obtainedMarks * 100.0) / totalMarks;
+    }
+
+    boolean passed = percentage >= quiz.getPassingScore();
+
+    // Build result DTO
+    QuizResultDTO result = new QuizResultDTO();
+    result.setTotalQuestions(totalQuestions);
+    result.setCorrectAnswers(correctAnswers);
+    result.setIncorrectAnswers(incorrectAnswers);
+    result.setObtainedMarks(obtainedMarks);
+    result.setTotalMarks(totalMarks);
+    result.setPercentage(percentage);
+    result.setPassed(passed);
+
+    return result;
+}
 }
