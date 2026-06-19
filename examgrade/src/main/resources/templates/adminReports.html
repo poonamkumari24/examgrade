@@ -17,10 +17,20 @@
     
     color:black;
   }
-  .bi{
-    background-color:lightblue;
-  }
 
+  .icon-box {
+    width: 30px;
+    height: 30px;
+    background-color: #e7f1ff; /* light blue */
+    border-radius: 10px;       /* rounded corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+.icon-box i {
+    font-size: 20px;
+}
     
 </style>
 
@@ -90,18 +100,14 @@ Overview of student performance and system usage.
     <div class="col-9">
         <h6>Total Attempts</h6>
     </div>
-    <div class=" icon col-3 text-center">
+    <div class="  col-3 text-center">
+       <div class="icon-box">
       <i class="bi bi-file-earmark-bar-graph text-primary"></i>
+      </div>
     </div>
 </div>
-
-
-
 <div class="score mt-2 fw-bold fs-3"> 1,245</div>
-
-
 </div>
-
 </div>
 
 </div>
@@ -117,7 +123,9 @@ Overview of student performance and system usage.
         <h6>Avg. Score</h6>
     </div>
     <div class=" icon col-3 text-center">
+       <div class="icon-box">
       <i class="fa fa-star fa-lg text-primary"></i>
+      </div>
     </div>
 </div>
 <div class="score mt-2 fw-bold fs-3"> 78%</div>
@@ -138,7 +146,9 @@ Overview of student performance and system usage.
         <h6>Active Students</h6>
     </div>
     <div class=" icon col-3 text-center">
+      <div class="icon-box">
       <i class="fa fa-users fa-lg text-primary"></i>
+      </div>
     </div>
 </div>
 <div class="score mt-2 fw-bold fs-3"> 320</div>
@@ -159,7 +169,9 @@ Overview of student performance and system usage.
         <h6>Pending Reviews</h6>
     </div>
     <div class=" icon col-3 text-center">
+      <div class="icon-box">
       <i class="fa fa-clock fa-lg text-primary"></i>
+      </div>
     </div>
 </div>
 <div class="score mt-2 fw-bold fs-3"> 18</div>
